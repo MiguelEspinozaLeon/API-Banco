@@ -16,7 +16,8 @@ var connection = mysql.createConnection({
   host     : 'us-cdbr-east-04.cleardb.com',
   user     : 'bb647aa231f05d',
   password : '05507a58',
-  database : 'heroku_973b8042d64a45b'
+  database : 'heroku_973b8042d64a45b',
+  multipleStatements:true
 });
 
 var pool  = mysql.createPool({
@@ -150,12 +151,19 @@ app.post('/tarjetas/:id', (req,res)=>{
 app.post('/retiro',(req,res)=>{
     const {id} = req.params
     const sql = 'INSERT INTO transacciones SET ?'
+    const sql2 = `UPDATE tarjetas SET saldo = saldo - ${customerObj.monto_transaccion} WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
     const customerObj = {
         numero_tarjeta: req.body.numero_tarjeta,
         tipo_transaccion: req.body.tipo_transaccion,
         monto_transaccion: req.body.monto_transaccion,
         fecha: req.body.fecha
     }
+    connection.query(sql,sql2, customerObj, error =>{
+        if (error) throw error;
+        res.send('Retiro realizado');
+       });
+
+
    
 });
 
