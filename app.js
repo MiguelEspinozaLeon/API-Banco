@@ -144,6 +144,21 @@ app.post('/tarjetas/:id', (req,res)=>{
 })
 
 //Transacciones
+//transacciones de un solo usuario
+app.get('/estadodecuenta/:id', (req,res)=>{
+    const {id} = req.params;
+    const sql = `SELECT * FROM transacciones WHERE numero_tarjeta = ${id} `;
+    connection.query(sql, (error, results)=>{
+        if (error) throw error;
+        if (results.length > 0){
+            res.json(results);
+        }
+        else{
+            res.send('Sin resultados');
+        }
+    });
+
+});
 
 //retiro
 app.post('/retiro',(req,res)=>{
