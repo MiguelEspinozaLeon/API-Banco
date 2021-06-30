@@ -19,6 +19,19 @@ var connection = mysql.createConnection({
   database : 'heroku_973b8042d64a45b'
 });
 
+var pool  = mysql.createPool({
+    connectionLimit : 10,
+    host     : 'us-cdbr-east-04.cleardb.com',
+    user     : 'bb647aa231f05d',
+    password : '05507a58',
+    database : 'heroku_973b8042d64a45b'
+   
+  });
+   
+  pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results[0].solution);
+  });
 
 
 //mysql://bb647aa231f05d:05507a58@us-cdbr-east-04.cleardb.com/heroku_973b8042d64a45b?reconnect=true
