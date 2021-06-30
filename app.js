@@ -25,7 +25,8 @@ var connection  = mysql.createPool({
     host     : 'us-cdbr-east-04.cleardb.com',
     user     : 'bb647aa231f05d',
     password : '05507a58',
-    database : 'heroku_973b8042d64a45b'
+    database : 'heroku_973b8042d64a45b',
+    multipleStatements:true
   });
   
  
@@ -155,7 +156,9 @@ app.post('/retiro',(req,res)=>{
         monto_transaccion: req.body.monto_transaccion,
         fecha: req.body.fecha
     }
-    const sql2 = `UPDATE tarjetas SET saldo = saldo - ${customerObj.monto_transaccion} WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
+    const sql2 = `UPDATE tarjetas 
+    SET saldo = saldo - ${customerObj.monto_transaccion} 
+    WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
     connection.query(sql,sql2, customerObj, error =>{
         if (error) throw error;
         res.send('Retiro realizado');
