@@ -146,15 +146,16 @@ app.post('/tarjetas/:id', (req,res)=>{
 
 //retiro
 app.post('/retiro',(req,res)=>{
-    const {id} = req.params
+   
     const sql = 'INSERT INTO transacciones SET ?'
-    const sql2 = `UPDATE tarjetas SET saldo = saldo - ${customerObj.monto_transaccion} WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
+    
     const customerObj = {
         numero_tarjeta: req.body.numero_tarjeta,
         tipo_transaccion: req.body.tipo_transaccion,
         monto_transaccion: req.body.monto_transaccion,
         fecha: req.body.fecha
     }
+    const sql2 = `UPDATE tarjetas SET saldo = saldo - ${customerObj.monto_transaccion} WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
     connection.query(sql, customerObj, error =>{
         if (error) throw error;
         res.send('Retiro realizado');
