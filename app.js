@@ -117,8 +117,8 @@ app.post('/abrircuenta/:id', (req,res)=>{
     const customerObj = {
         
         rfc: id,
-        id_cuentabancaria: req.body.correo,
-        codigo_cliente: req.body.telefono
+        id_cuentabancaria: req.body.id_cuentabancaria,
+        codigo_cliente: req.body.codigo_cliente
     }
     connection.query(sql, customerObj, error =>{
         if (error) throw error;
