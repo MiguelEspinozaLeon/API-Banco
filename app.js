@@ -116,7 +116,7 @@ app.post('/abrircuenta/:id', (req,res)=>{
     const sql = "INSERT INTO cuentas_bancarias SET ?"
     const customerObj = {
         
-        rfc: `"${id}"`,
+        rfc: id,
         id_cuentabancaria: req.body.correo,
         codigo_cliente: req.body.telefono
     }
