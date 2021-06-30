@@ -181,6 +181,29 @@ app.post('/retiro',(req,res)=>{
 
    
 });
+//deposito
+app.post('/deposito',(req,res)=>{
+   
+    const sql = 'INSERT INTO transacciones SET ?'
+    
+    const customerObj = {
+        numero_tarjeta: req.body.numero_tarjeta,
+        tipo_transaccion: req.body.tipo_transaccion,
+        monto_transaccion: req.body.monto_transaccion,
+        fecha: req.body.fecha
+    }
+    
+    connection.query(sql, customerObj, error =>{
+        if (error) throw error;
+        res.send('Deposito realizado.');
+       });
+    connection.query('UPDATE tarjetas SET saldo = saldo + ? WHERE numero_tarjeta = ?' , [customerObj.monto_transaccion, customerObj.numero_tarjeta]);
+
+
+   
+});
+
+//transferencia
 
 
 
