@@ -167,10 +167,10 @@ app.post('/retiro',(req,res)=>{
 
 
 //Check connection
-connection.connect(error =>{
-    if(error) throw error;
-    console.log('Database server running!')
-});
+// connection.connect(error =>{
+//     if(error) throw error;
+//     console.log('Database server running!')
+// });
 
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
