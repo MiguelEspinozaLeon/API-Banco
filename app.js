@@ -12,15 +12,15 @@ app.use(express.json());
 
 //MySQL
 
-var connection = mysql.createConnection({
-  host     : 'us-cdbr-east-04.cleardb.com',
-  user     : 'bb647aa231f05d',
-  password : '05507a58',
-  database : 'heroku_973b8042d64a45b',
-  multipleStatements:true
-});
+// var connection = mysql.createConnection({
+//   host     : 'us-cdbr-east-04.cleardb.com',
+//   user     : 'bb647aa231f05d',
+//   password : '05507a58',
+//   database : 'heroku_973b8042d64a45b',
+//   multipleStatements:true
+// });
 
-var pool  = mysql.createPool({
+var connection  = mysql.createPool({
     connectionLimit : 10,
     host     : 'us-cdbr-east-04.cleardb.com',
     user     : 'bb647aa231f05d',
