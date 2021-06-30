@@ -111,16 +111,23 @@ app.delete('/delete/:id', (req, res)=>{
 
 
 //Apertura de cuenta bancaria
-app.get('/abrircuenta/:id', (req,res)=>{
-    const sql = `INSERT INTO cuentas_bancarias WHERE rfc = "${id}"`
+app.post('/abrircuenta/:id', (req,res)=>{
+    const {id} = req.params
+    const sql = "INSERT INTO cuentas_bancarias SET ?"
     const customerObj = {
         
         rfc: `"${id}"`,
         id_cuentabancaria: req.body.correo,
         codigo_cliente: req.body.telefono
     }
+    connection.query(sql, customerObj, error =>{
+        if (error) throw error;
+        res.send('Cuenta bancaria creada');
+       });
 
 });
+
+
 
 //Check connection
 connection.connect(error =>{
