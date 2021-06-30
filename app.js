@@ -156,7 +156,7 @@ app.post('/retiro',(req,res)=>{
         fecha: req.body.fecha
     }
     const sql2 = `UPDATE tarjetas SET saldo = saldo - ${customerObj.monto_transaccion} WHERE numero_tarjeta = ${customerObj.numero_tarjeta}`
-    connection.query(sql, customerObj, error =>{
+    connection.query(sql,sql2, customerObj, error =>{
         if (error) throw error;
         res.send('Retiro realizado');
        });
