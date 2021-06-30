@@ -27,9 +27,9 @@ var pool  = mysql.createPool({
     database : 'heroku_973b8042d64a45b'
   });
   
-  pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  pool.query('SELECT * FROM clientes', function (error, results, fields) {
     if (error) throw error;
-    console.log('The solution is: ', results[0].solution);
+    console.log('The solution is: ', results);
   });
 
 
