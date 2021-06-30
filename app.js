@@ -158,7 +158,7 @@ app.post('/retiro',(req,res)=>{
         monto_transaccion: req.body.monto_transaccion,
         fecha: req.body.fecha
     }
-    connection.query(sql,sql2, customerObj, error =>{
+    connection.query(sql, customerObj, error =>{
         if (error) throw error;
         res.send('Retiro realizado');
        });
