@@ -126,6 +126,38 @@ app.post('/abrircuenta/:id', (req,res)=>{
        });
 
 });
+//Tarjetas
+app.post('/tarjetas/:id', (req,res)=>{
+    const {id} = req.params
+    const sql = 'INSERT INTO tarjetas SET ?'
+    const customerObj = {
+        numero_tarjeta: req.body.numero_tarjeta,
+        id_cuentabancaria: id,
+        vigencia: req.body.vigencia,
+        saldo: req.body.saldo,
+        ccv: req.body.ccv
+    }
+    connection.query(sql, customerObj, error =>{
+        if (error) throw error;
+        res.send('Tarjeta registrada');
+       });
+
+})
+
+//Transacciones
+
+//retiro
+app.post('/retiro',(req,res)=>{
+    const {id} = req.params
+    const sql = 'INSERT INTO transacciones SET ?'
+    const customerObj = {
+        numero_tarjeta: req.body.numero_tarjeta,
+        tipo_transaccion: req.body.tipo_transaccion,
+        monto_transaccion: req.body.monto_transaccion,
+        fecha: req.body.fecha
+    }
+   
+});
 
 
 
