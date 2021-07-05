@@ -212,13 +212,14 @@ app.post('/retiro',(req,res)=>{
 app.post('/deposito',(req,res)=>{
    
     const sql = 'INSERT INTO transacciones SET ?'
-    
+    var deposito = 102
+    var numero_transaccion =  (Math.floor(100000 + Math.random() * 900000));
     const customerObj = {
         numero_tarjeta: req.body.numero_tarjeta,
-        tipo_transaccion: req.body.tipo_transaccion,
+        tipo_transaccion: deposito,
         monto_transaccion: req.body.monto_transaccion,
-        fecha: req.body.fecha,
-        numero_transaccion: req.body.numero_transaccion
+        
+        numero_transaccion: numero_transaccion
     }
     
     connection.query(sql, customerObj, error =>{
@@ -234,14 +235,40 @@ app.post('/deposito',(req,res)=>{
 //transferencia
 app.post('/transferencia',(req,res)=>{
     const sql = 'INSERT INTO transacciones SET ?'
-    const customerObj = {
-        numero_tarjeta: req.body.numero_tarjeta,
-        tipo_transaccion: req.body.tipo_transaccion,
+    const transferencia = 103;
+    const deposito = 102;
+    const retiro = 101;
+    
+    var numero_transaccion =  (Math.floor(100000 + Math.random() * 900000));
+    const customerObjDeposito = {
+        numero_tarjeta: req.body.numero_tarjeta_destino,
+        tipo_transaccion: deposito,
         monto_transaccion: req.body.monto_transaccion,
-        fecha: req.body.fecha,
-        numero_transaccion: req.body.numero_transaccion
+        
+        numero_transaccion: numero_transaccion
 
     }
+    const customerObjRetiro = {
+        numero_tarjeta: req.body.numero_tarjeta_origen,
+        tipo_transaccion: retiro,
+        monto_transaccion: req.body.monto_transaccion,
+        
+        numero_transaccion: numero_transaccion
+
+    }
+    connection.query(sql, customerObjRetiro, error =>{
+        if (error) throw error;
+        res.send('Retiro.');
+       });
+       connection.query(sql, customerObjDeposito, error =>{
+        if (error) throw error;
+        res.send('Deposito.');
+       });
+    connection.query('UPDATE tarjetas SET saldo = saldo + ? WHERE numero_tarjeta = ?' , [customerObjDeposito.monto_transaccion, customerObjDeposito.numero_tarjeta]);
+    connection.query('UPDATE tarjetas SET saldo = saldo - ? WHERE numero_tarjeta = ?' , [customerObjRetiro.monto_transaccion, customerObjRetiro.numero_tarjeta]);
+
+
+
 
 
 })
