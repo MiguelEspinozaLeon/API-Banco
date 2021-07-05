@@ -68,6 +68,25 @@ app.get('/clientes', (req,res)=>{
 
    
 });
+app.get('/cuentas', (req,res)=>{
+    const sql = 'SELECT * FROM cuentas_bancarias';
+    connection.query(sql, (error, results)=>{
+        if (error) throw error;
+        if (results.length > 0){
+            res.json(results);
+        }
+        else{
+            res.send('No results');
+        }
+    });
+
+});
+
+
+
+
+
+   
 app.get('/clientes/:id', (req,res)=>{
 
     const {id} = req.params
