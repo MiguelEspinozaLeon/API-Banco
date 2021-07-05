@@ -169,7 +169,8 @@ app.post('/retiro',(req,res)=>{
         numero_tarjeta: req.body.numero_tarjeta,
         tipo_transaccion: req.body.tipo_transaccion,
         monto_transaccion: req.body.monto_transaccion,
-        fecha: req.body.fecha
+        fecha: req.body.fecha,
+        numero_transaccion: req.body.numero_transaccion
     }
     
     connection.query(sql, customerObj, error =>{
@@ -190,7 +191,8 @@ app.post('/deposito',(req,res)=>{
         numero_tarjeta: req.body.numero_tarjeta,
         tipo_transaccion: req.body.tipo_transaccion,
         monto_transaccion: req.body.monto_transaccion,
-        fecha: req.body.fecha
+        fecha: req.body.fecha,
+        numero_transaccion: req.body.numero_transaccion
     }
     
     connection.query(sql, customerObj, error =>{
@@ -204,7 +206,19 @@ app.post('/deposito',(req,res)=>{
 });
 
 //transferencia
+app.post('/transferencia',(req,res)=>{
+    const sql = 'INSERT INTO transacciones SET ?'
+    const customerObj = {
+        numero_tarjeta: req.body.numero_tarjeta,
+        tipo_transaccion: req.body.tipo_transaccion,
+        monto_transaccion: req.body.monto_transaccion,
+        fecha: req.body.fecha,
+        numero_transaccion: req.body.numero_transaccion
 
+    }
+
+
+})
 
 
 //Check connection
