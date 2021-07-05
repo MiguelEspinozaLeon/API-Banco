@@ -110,12 +110,12 @@ app.delete('/delete/:id', (req, res)=>{
 
 
 //Apertura de cuenta bancaria
-app.post('/abrircuenta/:id', (req,res)=>{
+app.post('/abrircuenta', (req,res)=>{
     const {id} = req.params
     const sql = "INSERT INTO cuentas_bancarias SET ?"
     const customerObj = {
         
-        rfc: id,
+        rfc: req.body.rfc,
         id_cuentabancaria: req.body.id_cuentabancaria,
         codigo_cliente: req.body.codigo_cliente
     }
@@ -126,12 +126,12 @@ app.post('/abrircuenta/:id', (req,res)=>{
 
 });
 //Tarjetas
-app.post('/tarjetas/:id', (req,res)=>{
+app.post('/tarjetas', (req,res)=>{
     const {id} = req.params
     const sql = 'INSERT INTO tarjetas SET ?'
     const customerObj = {
         numero_tarjeta: req.body.numero_tarjeta,
-        id_cuentabancaria: id,
+        id_cuentabancaria: req.body.id_cuentabancaria,
         vigencia: req.body.vigencia,
         saldo: req.body.saldo,
         ccv: req.body.ccv
