@@ -189,13 +189,14 @@ app.get('/estadodecuenta/:id', (req,res)=>{
 app.post('/retiro',(req,res)=>{
    
     const sql = 'INSERT INTO transacciones SET ?'
-    
+    var numero_transaccion =  (Math.floor(100000 + Math.random() * 900000));
+    var retiro = 101;
     const customerObj = {
         numero_tarjeta: req.body.numero_tarjeta,
-        tipo_transaccion: req.body.tipo_transaccion,
+        tipo_transaccion: retiro,
         monto_transaccion: req.body.monto_transaccion,
-        fecha: req.body.fecha,
-        numero_transaccion: req.body.numero_transaccion
+      
+        numero_transaccion: numero_transaccion
     }
     
     connection.query(sql, customerObj, error =>{
